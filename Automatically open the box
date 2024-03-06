@@ -1,0 +1,94 @@
+Hwnd = Plugin.Window.Foreground()
+sRect = Plugin.Window.GetClientRect(Hwnd)   
+dim MyArray3   
+MyArray3 = Split(sRect, "|")   
+L = Clng(MyArray3(0)): T = Clng(MyArray3(1))
+R = Clng(MyArray3(2)) : B = Clng(MyArray3(3))
+Event Form1.InputBox1.Change
+End Event
+a = Form1.InputBox1.Text//µÃµ½ÊäÈë¿ò¿Ø¼þÎÄ±¾ÄÚÈÝ
+Event Form1.InputBox5.Change
+
+End Event
+q = Form1.InputBox5.Text//µÃµ½ÊäÈë¿ò¿Ø¼þÎÄ±¾ÄÚÈÝ
+
+Event Form1.Button2.Click
+Call Plugin.File.DeleteFile("C:\Config.txt")
+MsgBox "ÒÑ³õÊ¼»¯×ø±êÎÄ¼þ£¬ÐèÆô¶¯ÔÙ´Î¼ÇÂ¼"
+End Event
+IsFile = Plugin.File.IsFileExit("C:\Config.txt")//ÅÐ¶ÏÎÄ¼þÊÇ·ñ´æÔÚ£¬²»´æÔÚËµÃ÷ÓÃ»§ÊÇµÚÒ»´ÎÖ´ÐÐ£¬´ÓµÚ21ÐÐÖ´ÐÐ
+If IsFile = True Then
+    Text = Plugin.File.ReadFileEx("C:\Config.txt")//ÎÄ¼þ´æÔÚ£¬¶ÁÈ¡ÀïÃæµÄ×ø±ê
+    MyArray = Split(Text, "|") 
+    x1 = Cstr(MyArray(0))
+    y1 = Cstr(MyArray(1))
+    x2 = Cstr(MyArray(2))
+    y2 = Cstr(MyArray(3))
+    x3 = Cstr(MyArray(4))
+    y3 = Cstr(MyArray(5))
+    x4 = Cstr(MyArray(6))
+    y4 = Cstr(MyArray(7))
+    x5 = Cstr(MyArray(8))
+    y5 = Cstr(MyArray(9))
+Else 
+
+    MessageBox "Êó±êÓÒ¼üºÐ×ÓÎ»ÖÃ"
+    WaitClick
+    GetCursorPos x11, y11
+    x1 = x11 - L
+    y1 = y11 - T
+    Delay 300
+    MessageBox "Êó±ê×ó¼üÏÂÀ­Ñ¡Ïî"
+    WaitClick 
+    GetCursorPos x22, y22
+    x2 = x22 - L
+    y2 = y22 - T
+    Delay 300
+    MessageBox "Êó±ê×ó¼ü×°±¸ÀàÐÍ"
+    WaitClick
+    GetCursorPos x33, y33
+    x3 = x33 - L
+    y3 = y33 - T
+    Delay 300
+    MessageBox "Êó±ê×ó¼ü[ÁìÈ¡]°´Å¥"
+    WaitClick
+    GetCursorPos x44, y44
+    x4 = x44 - L
+    y4 = y44 - T
+    Delay 300
+    MessageBox "Êó±ê×ó¼ü[È·ÈÏ]°´Å¥"
+    WaitClick  
+    GetCursorPos x55, y55
+    x5 = x55 - L
+    y5 = y55 - T
+    handle = Plugin.File.OpenFile("c:\Config.txt")//´´½¨Õâ¸öÎÄ¼þ
+    Call Plugin.File.WriteFile(handle, x1 & vbNewLine & y1 & vbNewLine)//Ð´Èë×ø±ê£¬vbNewLine±íÊ¾»»ÐÐ
+    Call Plugin.File.WriteFile(handle, x2 & vbNewLine & y2 & vbNewLine)
+    Call Plugin.File.WriteFile(handle, x3 & vbNewLine & y3 & vbNewLine)
+    Call Plugin.File.WriteFile(handle, x4 & vbNewLine & y4 & vbNewLine)
+    Call Plugin.File.WriteFile(handle, x5 & vbNewLine & y5)
+    Call Plugin.File.CloseFile(handle)
+End If
+
+For a
+    MoveTo L+x1, T+y1
+    RightClick 1
+    Delay q
+    MoveTo L+x2, T+y2
+    LeftClick 1
+    Delay q
+    MoveTo L+x3, T+y3
+    LeftClick 1
+    Delay q
+    MoveTo L+x4, T+y4
+    LeftClick 1
+    Delay q
+    MoveTo L+x5, T+y5
+    LeftClick 1
+    Delay q
+    KeyPress "Space", 1
+    Delay q
+    KeyPress "Space", 1
+    Delay 150
+Next
+
